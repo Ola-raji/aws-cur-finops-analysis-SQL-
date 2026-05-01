@@ -1,4 +1,4 @@
-# AWS CUR FinOps Analysis
+## ☁️ AWS CUR FinOps Analysis (SQL) 📊
 
 This project takes raw AWS billing data — CUR Report 2.0 export covering 16 days of an internal HR portal running on a 3-tier, highly available architecture — and turns it into a clean dimensional model in PostgreSQL, then layers analytical SQL on top to extract insights that AWS-native tools (Cost Explorer, Budgets) do not surface.
 
@@ -6,23 +6,23 @@ The analysis is built in phases. Each phase ends with a concrete deliverable: a 
 
 ---
 
-## Star schema
+### ⭐ Star schema
 
-![Star schema diagram showing the data model](images/star-schema.png)
+<img src="https://github.com/user-attachments/assets/09aa9dce-550f-4a32-a853-3cff28fd1a5c" width="555">
 
 ---
 
-## Business context
+### 🏢 Business context
 
 The system under analysis is an **internal, read-only HR portal serving ~500 employees**. It is built on a production-shaped 3-tier architecture: an Application Load Balancer fronting two EC2 instances spread across availability zones, an RDS Multi-AZ MySQL backend, and a NAT gateway providing outbound internet access from private subnets. The workload has business-hours traffic, predictable seasonality, modest data volume, and read-heavy patterns.
 
-The architectural pattern is intentionally over-provisioned for the actual traffic profile — that is exactly what makes it a useful FinOps subject. An under-utilised production-grade architecture is the most common pattern in real enterprise IT, and the question "what does this system cost, and where is the cost actually going" is harder to answer than people assume.
+The architectural pattern is intentionally over-provisioned for the actual traffic profile — that is exactly what makes it a useful FinOps subject. An under-utilized production-grade architecture is the most common pattern in real enterprise IT, and the question "what does this system cost, and where is the cost actually going" is harder to answer than people assume.
 
 The AWS account is currently within Free Tier coverage, so the realised invoice cost is $0. **All economic analysis in this project uses `pricing_public_on_demand_cost`** — what this workload would cost at AWS list prices once Free Tier expires or the workload scales beyond its limits. This is documented in detail in [`docs/02-cur-primer.md`](docs/02-cur-primer.md) and [`docs/06-limitations.md`](docs/06-limitations.md).
 
 ---
 
-## Headline findings
+### 🔍 Headline finding
 
 For a 16-day window in April 2026:
 
@@ -36,13 +36,13 @@ Detailed findings — including the breakdown of every cost driver, the tag attr
 
 ---
 
-## Methodology summary
+### 🧪 Methodology summary
 
 The data is modelled as a small star schema. One fact table (`fct_daily_cost`) holds one row per CUR line item with all six tag dimensions resolved and three cost variants carried forward. Three dimensions hang off it: `dim_service` (service codes mapped to FinOps categories), `dim_resource` (ARNs parsed into readable names and types), and `bridge_tags` (a tag-attribution bridge that brings raw 39% tag coverage to 100% via three-tier enrichment with provenance). Every analytical query reads from `fct_daily_cost`. The raw CUR is treated as immutable — no transformations are applied in place. Full reasoning, alternatives considered, and trade-offs are in [`docs/05-methodology.md`](docs/05-methodology.md).
 
 ---
 
-## Data model
+### 🏗️ Data model
 
 The diagram at the top of this README shows the schema. Below is the file layout — what each script does and where it lives.
 
@@ -78,7 +78,7 @@ Full data model documentation: [`docs/03-data-model.md`](docs/03-data-model.md).
 
 ---
 
-## Tools and stack
+### 🛠️ Tools and stack
 
 | Layer | Tool |
 |---|---|
@@ -93,14 +93,14 @@ The stack is deliberately minimal — no orchestration framework, no notebook en
 
 ---
 
-## Project roadmap
+### 🗺️ Project roadmap
 
 The project is organized in phases, each producing a concrete reviewable deliverable. **Phases 0 and 1 are complete and represent the current scope of this repository.** This README and [`docs/04-findings.md`](docs/04-findings.md) will be extended as each subsequent phase ships.
 
 
 ---
 
-## Repository structure
+### 📂 Repository structure
 
 ```
 aws-cur-finops-analysis/
@@ -127,8 +127,3 @@ aws-cur-finops-analysis/
 └── LICENSE                         MIT.
 ```
 
----
-
-## License
-
-MIT — see [`LICENSE`](LICENSE).
