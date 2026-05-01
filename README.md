@@ -1,6 +1,6 @@
 ## AWS CUR FinOps Analysis (SQL) ☁️ 📊
 
-This project takes raw AWS CUR Report (2.0) covering 16 days of an internal HR portal running on a 3-tier, highly available architecture and turns it into a clean dimensional model in PostgreSQL, then layers analytical SQL on top to extract custom insights that AWS-native tools (Cost Explorer, Budgets, Trust Advisor etc.) do not surface.
+This project is an end-to-end analysis that takes raw AWS CUR Report (2.0) covering 16 days of an internal HR portal running on a 3-tier, highly available architecture and turns it into a clean dimensional model in PostgreSQL, then layers analytical SQL on top to extract custom insights that AWS-native tools (Cost Explorer, Budgets, Trust Advisor etc.) do not surface.
 
 The analysis is built in phases. Each phase ends with a concrete deliverable: a model layer, a set of analytical views, a forecasting module, or a showback view. The repository is updated after each phase completes. **The current scope covers Phase 0 (foundation) and Phase 1 (modelling).**
 
