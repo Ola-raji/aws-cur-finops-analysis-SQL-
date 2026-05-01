@@ -1,0 +1,27 @@
+# Local development
+.env
+.env.local
+*.log
+
+# DBeaver local config
+.dbeaver/
+*.dbeaver-data-formats.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Local data — never commit unscrubbed CURs
+data/raw/
+data/private/
