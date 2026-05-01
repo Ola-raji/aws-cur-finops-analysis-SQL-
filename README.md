@@ -82,12 +82,10 @@ Full data model documentation: [`docs/03-data-model.md`](docs/03-data-model.md).
 
 | Layer | Tool |
 |---|---|
-| Source data | AWS Cost and Usage Report 2.0 (Data Exports), delivered to S3 |
-| Database | PostgreSQL 16 |
+| Source data | S3, AWS CLI |
+| Database | PostgreSQL 18 |
 | SQL client | DBeaver |
-| Reference for cross-validation | AWS Cost Explorer, AWS Compute Optimizer |
-| Diagram authoring | HTML / SVG (see [`images/star-schema.html`](images/star-schema.html)) |
-| Documentation | Markdown |
+| Reference for cross-validation | AWS Cost Explorer, AWS Compute Optimizer, |
 
 The stack is deliberately minimal — no orchestration framework, no notebook environment, no BI tool dependencies. Anyone with PostgreSQL and a SQL client can clone this repo and reproduce the analysis end-to-end.
 
@@ -96,7 +94,6 @@ The stack is deliberately minimal — no orchestration framework, no notebook en
 ### 🗺️ Project roadmap
 
 The project is organized in phases, each producing a concrete reviewable deliverable. **Phases 0 and 1 are complete and represent the current scope of this repository.** This README and [`docs/04-findings.md`](docs/04-findings.md) will be extended as each subsequent phase ships.
-
 
 ---
 
