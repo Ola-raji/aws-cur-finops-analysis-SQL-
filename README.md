@@ -1,4 +1,4 @@
-## ☁️ AWS CUR FinOps Analysis (SQL) 📊
+## AWS CUR FinOps Analysis (SQL) ☁️ 📊
 
 This project takes raw AWS CUR Report (2.0) covering 16 days of an internal HR portal running on a 3-tier, highly available architecture and turns it into a clean dimensional model in PostgreSQL, then layers analytical SQL on top to extract custom insights that AWS-native tools (Cost Explorer, Budgets, Trust Advisor etc.) do not surface.
 
