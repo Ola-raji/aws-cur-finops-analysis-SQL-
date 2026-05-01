@@ -1,17 +1,3 @@
--- ==============================================================================
--- 01-dim-service.sql
--- Service dimension. One row per AWS service code observed in the CUR.
---
--- Keyed on line_item_product_code (not product_servicecode — the latter can
--- be 'AWSDataTransfer' on rows belonging to other services and is unstable
--- as a join key).
---
--- service_category is editorial. The grouping reflects FinOps reporting
--- conventions, not an AWS-published taxonomy. NAT gateway charges land here
--- under 'Compute' because AWS bills them under AmazonEC2 — see
--- docs/04-findings.md for the implication and the workaround.
--- ==============================================================================
-
 CREATE SCHEMA IF NOT EXISTS marts;
 
 DROP TABLE IF EXISTS marts.dim_service;
