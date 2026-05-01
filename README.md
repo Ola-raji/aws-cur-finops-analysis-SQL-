@@ -1,15 +1,14 @@
 # AWS CUR FinOps Analysis
 
-This project takes raw AWS billing data — a Cost and Usage Report 2.0 export covering 16 days of an internal HR portal running on a 3-tier highly available architecture — and turns it into a clean dimensional model in PostgreSQL, then layers analytical SQL on top to extract insights that AWS-native tools (Cost Explorer, Budgets) do not surface.
+This project takes raw AWS billing data — CUR Report 2.0 export covering 16 days of an internal HR portal running on a 3-tier, highly available architecture — and turns it into a clean dimensional model in PostgreSQL, then layers analytical SQL on top to extract insights that AWS-native tools (Cost Explorer, Budgets) do not surface.
 
-The analysis is built in phases. Each phase ends with a concrete deliverable: a model layer, a set of analytical views, a forecasting module, a showback view. The repository is updated after each phase completes. **The current scope covers Phase 0 (foundation) and Phase 1 (modeling).** See [Project roadmap](#project-roadmap) below.
+The analysis is built in phases. Each phase ends with a concrete deliverable: a model layer, a set of analytical views, a forecasting module, or a showback view. The repository is updated after each phase completes. **The current scope covers Phase 0 (foundation) and Phase 1 (modelling).**
 
 ---
 
 ## Star schema
 
 ![Star schema diagram showing the data model](images/star-schema.png)
-
 
 ---
 
@@ -96,7 +95,7 @@ The stack is deliberately minimal — no orchestration framework, no notebook en
 
 ## Project roadmap
 
-The project is organised in phases, each producing a concrete reviewable deliverable. **Phases 0 and 1 are complete and represent the current scope of this repository.** This README and [`docs/04-findings.md`](docs/04-findings.md) will be extended as each subsequent phase ships.
+The project is organized in phases, each producing a concrete reviewable deliverable. **Phases 0 and 1 are complete and represent the current scope of this repository.** This README and [`docs/04-findings.md`](docs/04-findings.md) will be extended as each subsequent phase ships.
 
 
 ---
