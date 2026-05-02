@@ -6,7 +6,7 @@ The analysis is built in phases. Each phase ends with a concrete deliverable: a 
 
 ---
 
-### ⭐ Star schema
+### 🗄️ Schema
 
 <img src="https://github.com/user-attachments/assets/09aa9dce-550f-4a32-a853-3cff28fd1a5c" width="555">
 
