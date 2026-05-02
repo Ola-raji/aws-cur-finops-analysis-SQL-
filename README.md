@@ -18,7 +18,7 @@ The system under analysis is an **internal, read-only HR portal serving ~500 emp
 
 The architectural pattern is intentionally over-provisioned for the actual traffic profile — that is exactly what makes it a useful FinOps subject. An under-utilized production-grade architecture is the most common pattern in real enterprise IT, and the question "what does this system cost, and where is the cost actually going" is harder to answer than people assume.
 
-The AWS account is currently within Free Tier coverage, so the realised invoice cost is $0. **All economic analysis in this project uses `pricing_public_on_demand_cost`** — what this workload would cost at AWS list prices once Free Tier expires or the workload scales beyond its limits. This is documented in detail in [`docs/02-cur-primer.md`](docs/02-cur-primer.md) and [`docs/06-limitations.md`](docs/06-limitations.md).
+The AWS account is currently within Free Tier coverage, so the realised invoice cost is $0. **All economic analysis in this project uses `pricing_public_on_demand_cost`** — what this workload would cost at AWS list prices without the Free Tier. This is documented in detail in [`docs/02-cur-primer.md`](https://github.com/Ola-raji/aws-cur-finops-analysis-SQL-/blob/main/documentation/02-cur-primer.md) and [`docs/06-limitations.md`](https://github.com/Ola-raji/aws-cur-finops-analysis-SQL-/blob/main/documentation/06-limitations.md).
 
 ---
 
@@ -44,7 +44,7 @@ The data is modelled as a small star schema. One fact table (`fct_daily_cost`) h
 
 ### 🏗️ Data model
 
-The diagram at the top of this README shows the schema. Below is the file layout — what each script does and where it lives.
+The diagram at the top of this README shows the schema. Below is the file layout, scripts mapped, what each script does and where it lives.
 
 ```
 Raw CUR (CSV in S3)
@@ -65,22 +65,19 @@ Raw CUR (CSV in S3)
 └───────────────────────────────────────────────┘
 ```
 
-| Schema | Script | Purpose |
-|---|---|---|
-| `staging` | [`sql/10-staging/00-load-fixes.sql`](sql/10-staging/00-load-fixes.sql) | Type corrections for the raw CUR table after CSV import. Run only if you load via DBeaver's import wizard rather than the production loader. |
-| `marts` | [`sql/20-marts/01-dim-service.sql`](sql/20-marts/01-dim-service.sql) | Service dimension. 13 service codes mapped to 9 FinOps categories. |
-| `marts` | [`sql/20-marts/02-dim-resource.sql`](sql/20-marts/02-dim-resource.sql) | Resource dimension. 23 ARNs parsed into readable names and types. |
-| `marts` | [`sql/20-marts/03-bridge-tags.sql`](sql/20-marts/03-bridge-tags.sql) | Tag attribution bridge. Three-tier enrichment, raw 39% coverage to 100% with provenance. |
-| `marts` | [`sql/20-marts/04-fct-daily-cost.sql`](sql/20-marts/04-fct-daily-cost.sql) | Central fact table. 1,882 rows, one per CUR line item, all tags resolved. |
+| Table | Script | Purpose |
+| :--- | :--- | :--- |
+| **dim_service** | `sql/20-marts/01-dim-service.sql` | 13 service codes mapped to 9 FinOps categories. |
+| **dim_resource** | `sql/20-marts/02-dim-resource.sql` | Resource dimension. 23 ARNs |
+| **bridge_tags** | `sql/20-marts/03-bridge-tags.sql` | Tag attribution bridge. Three-tier enrichment, raw 39% coverage to 100% with provenance. |
+| **fct_daily_cost** | `sql/20-marts/04-fct-daily-cost.sql` | Central fact table. 1,882 rows, one per CUR line item, all tags resolved. |
 
-
-Full data model documentation: [`docs/03-data-model.md`](docs/03-data-model.md).
 
 ---
 
 ### 🛠️ Tools and stack
 
-| Layer | Tool |
+|Layer|Tool|
 |---|---|
 | Source data | S3, AWS CLI |
 | Database | PostgreSQL 18 |
