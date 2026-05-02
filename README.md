@@ -12,7 +12,7 @@ The analysis is built in phases. Each phase ends with a concrete deliverable: a 
 
 ---
 
-### 🏢 Business context
+### 🏢 [Business context](https://github.com/Ola-raji/aws-cur-finops-analysis-SQL-/blob/main/documentation/01-context.md)
 
 The system under analysis is an **internal, read-only HR portal serving ~500 employees**. It is built on a production-shaped 3-tier architecture: an Application Load Balancer fronting two EC2 instances spread across availability zones, an RDS Multi-AZ MySQL backend, and a NAT gateway providing outbound internet access from private subnets. The workload has business-hours traffic, predictable seasonality, modest data volume, and read-heavy patterns.
 
@@ -22,7 +22,7 @@ The AWS account is currently within Free Tier coverage, so the realised invoice 
 
 ---
 
-### 🔍 Headline finding
+### 🔍 [Headline finding](https://github.com/Ola-raji/aws-cur-finops-analysis-SQL-/blob/main/documentation/04-findings.md)
 
 For a 16-day window in April 2026:
 
@@ -32,17 +32,16 @@ For a 16-day window in April 2026:
 - **AWS bills the NAT gateway under the EC2 service code, not VPC.** Any cost categorisation that groups by `line_item_product_code` will misclassify NAT gateway spend as Compute. This is a known FinOps trap and is handled explicitly in the data model.
 - **Raw resource-tag coverage is 39% of cost.** A three-tier enrichment bridge (real tags, partial inference, full inference from resource type) brings attribution to 100% with full provenance recorded on every dollar.
 
-Detailed findings — including the breakdown of every cost driver, the tag attribution math, and the supporting queries — are in [`docs/04-findings.md`](docs/04-findings.md).
 
 ---
 
-### 🧪 Methodology summary
+### 🧪 [Methodology summary](https://github.com/Ola-raji/aws-cur-finops-analysis-SQL-/blob/main/documentation/05-methodology.md)
 
-The data is modelled as a small star schema. One fact table (`fct_daily_cost`) holds one row per CUR line item with all six tag dimensions resolved and three cost variants carried forward. Three dimensions hang off it: `dim_service` (service codes mapped to FinOps categories), `dim_resource` (ARNs parsed into readable names and types), and `bridge_tags` (a tag-attribution bridge that brings raw 39% tag coverage to 100% via three-tier enrichment with provenance). Every analytical query reads from `fct_daily_cost`. The raw CUR is treated as immutable — no transformations are applied in place. Full reasoning, alternatives considered, and trade-offs are in [`docs/05-methodology.md`](docs/05-methodology.md).
+The data is modelled as a small star schema. One fact table (`fct_daily_cost`) holds one row per CUR line item with all six tag dimensions resolved and three cost variants carried forward. Three dimensions hang off it: `dim_service` (service codes mapped to FinOps categories), `dim_resource` (ARNs parsed into readable names and types), and `bridge_tags` (a tag-attribution bridge that brings raw 39% tag coverage to 100% via three-tier enrichment with provenance). Every analytical query reads from `fct_daily_cost`. The raw CUR is treated as immutable — no transformations are applied in place. 
 
 ---
 
-### 🏗️ Data model
+### 🏗️ [Data model](https://github.com/Ola-raji/aws-cur-finops-analysis-SQL-/blob/main/documentation/03-data-model.md)
 
 The diagram at the top of this README shows the schema. Below is the file layout, scripts mapped, what each script does and where it lives.
 
